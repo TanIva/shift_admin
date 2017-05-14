@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <title>Shift</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-app="myApp" ng-cloak>
+
+<div class="admin-modal" ng-controller="myCtrl">
+    <div class="close">x</div>
+    <div class="container">
+        <div class="row center-xs">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>הגדרות מסלולים</p>
+            </div>
+            <div class="col-xs-10 col-md-9"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>הזמנת נסיעה</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table>
+                    <tr>
+                        <td>
+                            <span>עד</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.number">
+                            </md-input-container>
+                            <span>ימים מראש</span>
+                        </td>
+                        <td>
+                            <span>למשמרות עד השעה</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.time">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>סיום הרשמה</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <div class="tabs">
+                    <p class="tab">עפ"י</p>
+                    <div class="tab">
+                        <input type="radio" id="tab-1" name="tab-group-1" checked>
+                        <label for="tab-1">שעות קבועות</label>
+                        <div class="content">
+                            <div>
+                                <span>סגירת רישום בשעה</span>
+                                <md-input-container md-no-float="">
+                                    <input ng-model="test.time">
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <span>עבור משמרות</span>
+                                <md-input-container md-no-float="">
+                                    <input ng-model="test.text">
+                                </md-input-container>
+                                <span>בתנאי שהן מתרחשות בעוד יותר מ</span>
+                                <md-input-container md-no-float="">
+                                    <input ng-model="test.number">
+                                </md-input-container>
+                                <span>שעות.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <input type="radio" id="tab-2" name="tab-group-1">
+                        <label for="tab-2">שעות איסוף \הגעה</label>
+                        <div class="content">
+                            <span>סגירת רישום</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.number">
+                            </md-input-container>
+                            <span>שעות לפני שעת האיסוף \הגעה</span>
+                        </div>
+                    </div>
+                </div><!--end tabs-->
+                <div><button class="add_btn">+</button><span class="hint">הוסף שעת סיום</span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>הזמנה לאחר שעת הסיום</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <md-switch class="md-primary" md-no-ink="" aria-label="Switch No Ink" ng-model="data.cb1">כו\לא</md-switch>
+                <md-switch class="md-primary" md-no-ink="" aria-label="Switch No Ink" ng-model="data.cb2">אישור ספק</md-switch>
+                <md-switch class="md-primary" md-no-ink="" aria-label="Switch No Ink" ng-model="data.cb3">אישור לקוח</md-switch>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>ביטול נסיעה</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table>
+                    <tr>
+                        <td>
+                            <span>יותר מ</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.number">
+                            </md-input-container>
+                            <span>שעות לפני הנסיעה</span>
+                        </td>
+                        <td>
+                            <span>חיוב של</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.percent">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>פחות מ</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.number">
+                            </md-input-container>
+                            <span>שעות לפני הנסיעה</span>
+                        </td>
+                        <td>
+                            <span>חיוב של</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.percent">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>לאחר התייצבות</span>
+                        </td>
+                        <td>
+                            <span>חיוב של</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.percent">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>ביטול נסיעה</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table class="mt15">
+                    <tr>
+                        <td>
+                            <span>איחוד שעות (דקות)</span>
+                        </td>
+                        <td>
+                            <div class="podbor">
+                                <span class="minus">-</span>
+                                <input type="text" value="30">
+                                <span class="plus">+</span>
+                            </div>
+                            <!--
+                            <md-input-container>
+                                <input required="" type="number" step="any" name="rate" ng-model="test.rate" min="0" max="60" ng-pattern="/^1234$/">
+                            </md-input-container>
+                            -->
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>זמן המתנה בתחנה (שניות)</span>
+                        </td>
+                        <td>
+                            <div class="podbor">
+                                <span class="minus">-</span>
+                                <input type="text" value="30">
+                                <span class="plus">+</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>איסוף מתחנות מרכזיו</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb1"></md-switch>
+                        </td>
+                        <td>
+                            <span>עד מרחק</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.number">
+                            </md-input-container>
+                            <span>מטר</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>כולל כבישי אגרה</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>משך זמן מקסימאלי</span>
+                        </td>
+                        <td>
+                            <div class="podbor">
+                                <span class="minus">-</span>
+                                <input type="text" value="60">
+                                <span class="plus">+</span>
+                            </div>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb1">עפ"י ערים</md-switch>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-xs-2 col-md-3 right-border">
+            <p>גודל רכב ותפוסה</p>
+        </div>
+        <div class="col-xs-10 col-md-9">
+            <table class="mt15">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <span>תפוסה מקסימאלית</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>מונית (4)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>טרנזיט (8)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>טרנזיט (10)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb1"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>טרנזיט (14)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb1"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>מיקרובוס (16)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb1"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>מיניבוס (20)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>מידיבוס (35)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>אוטובוס (53)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>מידיבוס (55)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>אוטובוס (60)</span>
+                    </td>
+                    <td>
+                        <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                    </td>
+                    <td>
+                        <md-input-container md-no-float="">
+                            <input ng-model="test.number">
+                        </md-input-container>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>הגדרת מחיר</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table class="border mt15">
+                    <tr>
+                        <td colspan="2">
+                            <span>מספר נוסעים</span>
+                        </td>
+                        <td rowspan="2">
+                            <span>מחיר<br>לקילומטר</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>מ-</span>
+                        </td>
+                        <td>
+                            <span>עד-</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>1</span>
+                        </td>
+                        <td>
+                            <span>2</span>
+                        </td>
+                        <td>
+                            <span>₪ 7.00</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>3</span>
+                        </td>
+                        <td>
+                            <span>8</span>
+                        </td>
+                        <td>
+                            <span>₪ 6.00</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>9</span>
+                        </td>
+                        <td>
+                            <span>35</span>
+                        </td>
+                        <td>
+                            <span>₪ 5.00</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>35</span>
+                        </td>
+                        <td>
+                            <span>60</span>
+                        </td>
+                        <td>
+                            <span>₪ 4.00</span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="mt15"><button class="add_btn">+</button><span class="hint">הוסף קבוצת נוסעים</span></div>
+                <table>
+                    <tr>
+                        <td>
+                            <span>מחיר בסיס</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.symbol">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>מתחת ל </span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.x">
+                            </md-input-container>
+                            <span>ק"מ</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p>הגדרת ערים</p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table>
+                    <tr>
+                        <td>
+                            <span>מהשעה</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.time">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>ועד השעה</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.time">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+                <table class="mt15">
+                    <tr>
+                        <td>
+                            <span>עיר</span>
+                        </td>
+                        <td>
+                            <span>איסוף\פיזור</span>
+                        </td>
+                        <td>
+                            <span>משך נסיעה מקסימאלי</span>
+                        </td>
+                        <td>
+                            <span>ממוצע גוגל לנוסע בודד</span>
+                        </td>
+                        <td>
+                            <span>איסוף\פיזור מתחנה מרכזית</span>
+                        </td>
+                        <td>
+                            <span>תחנת איסוף מרכזית </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>חיפה</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>30דק'</span>
+                        </td>
+                        <td>
+                            <span>15דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>נהריה</span>
+                        </td>
+                        <td>
+                            <md-switch ng-disabled="true" ng-model="data.cb1"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text2">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>עכו</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <span>45דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>כרמיאל</span>
+                        </td>
+                        <td>
+                            <md-switch ng-disabled="true" ng-model="data.cb1"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>70דק'</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text2">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .אתא</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <span>30דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .ים</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text3">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>25דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .חיים</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text3">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>20דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-md-3 right-border">
+                <p></p>
+            </div>
+            <div class="col-xs-10 col-md-9">
+                <table>
+                    <tr>
+                        <td>
+                            <span>מהשעה</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.time">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>ועד השעה</span>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.time">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+                <table class="mt15 indtabl">
+                    <tr>
+                        <td>
+                            <span>עיר</span>
+                        </td>
+                        <td>
+                            <span>איסוף\פיזור</span>
+                        </td>
+                        <td>
+                            <span>משך נסיעה מקסימאלי</span>
+                        </td>
+                        <td>
+                            <span>ממוצע גוגל לנוסע בודד</span>
+                        </td>
+                        <td>
+                            <span>איסוף\פיזור מתחנה מרכזית</span>
+                        </td>
+                        <td>
+                            <span>תחנת איסוף מרכזית </span>
+                        </td>
+                        <td>
+                            <span>תחנת איסוף מרכזית </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>חיפה</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>30דק'</span>
+                        </td>
+                        <td>
+                            <span>15דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text4">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>נהריה</span>
+                        </td>
+                        <td>
+                            <md-switch ng-disabled="true" ng-model="data.cb1"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text2">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text5">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>עכו</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <span>45דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text6">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>כרמיאל</span>
+                        </td>
+                        <td>
+                            <md-switch ng-disabled="true" ng-model="data.cb1"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>70דק'</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text2">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text7">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .אתא</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <span>60דק'</span>
+                        </td>
+                        <td>
+                            <span>30דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text8">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .ים</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text3">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>25דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text9">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ק .חיים</span>
+                        </td>
+                        <td>
+                            <md-switch class="md-primary" md-no-ink="" ng-model="data.cb4"></md-switch>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text3">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <span>20דק'</span>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <md-input-container md-no-float="">
+                                <input ng-model="test.text9">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mt40">
+        <div class="col-xs-2 col-md-3 text-right">
+            <button type="button" class="orange_btn">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="col-xs-10 col-md-9 text-left">
+            <md-button class="md-raised md-primary">שחור וסיים</md-button>
+            <md-button class="md-raised md-primary">חמק עסק</md-button>
+        </div>
+    </div>
+</div>
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
