@@ -33,16 +33,19 @@ angular.module('myApp',['ngMaterial', 'ngMessages'])
         };
     });
 
-
-(function () {
-    document.onclick = function(e){
-        e = e || window.event;
-        var target = e.target || e.srcElement;
-        if ('SPAN' != target.tagName ||
-            !(target.className == 'minus' || target.className == 'plus')) return false;
-        var el = target.parentNode || target.parentElement,
-            inp = el.children[0],
-            val = +inp.value;
-        inp.value = val + (target.className == 'minus' ? val > 1 ? -1: 0: 1);
-    }
-}());
+$(document).ready(function() {
+    $('.minus').click(function () {
+        var $input = $(this).parent().find('input');
+        var count = parseInt($input.val()) - 1;
+        count = count < 1 ? 1 : count;
+        $input.val(count);
+        $input.change();
+        return false;
+    });
+    $('.plus').click(function () {
+        var $input = $(this).parent().find('input');
+        $input.val(parseInt($input.val()) + 1);
+        $input.change();
+        return false;
+    });
+});
